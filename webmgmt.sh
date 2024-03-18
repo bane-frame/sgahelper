@@ -25,7 +25,7 @@ echo "SGA web management script"
 echo "----------------------"
 echo "1. Enable service"
 echo "2. Disable service"
-echo "See current number of connections on SGA"
+echo "3. See current number of connections on SGA"
 echo "4. Exit"
 
 read -p "Enter your choice: " choice
