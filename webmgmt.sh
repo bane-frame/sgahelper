@@ -23,8 +23,8 @@ disable_service() {
 # enable or disable service choice
 echo "SGA web management script"
 echo "----------------------"
-echo "1. Enable service"
-echo "2. Disable service"
+echo "1. Enable status page service"
+echo "2. Disable status page service"
 echo "3. Connection statistics on SGA"
 echo "4. Test STUN communication"
 echo "5. Exit"
