@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Script for SGA 3.x Web console service management v1.1
+# Script for SGA 3.x Web console service management v1.2
 #
 
 # function to enable the web management service
@@ -26,7 +26,8 @@ echo "----------------------"
 echo "1. Enable service"
 echo "2. Disable service"
 echo "3. Connection statistics on SGA"
-echo "4. Exit"
+echo "4. Test STUN communication"
+echo "5. Exit"
 
 read -p "Enter your choice: " choice
 
@@ -43,13 +44,17 @@ case $choice in
         # see the current number of connections to SGA
         watch -d 'echo -e "FRP8 connections:" ; count8=`sudo netstat -anp |grep turn|grep -v 127|grep udp|uniq|wc -l` ; count81=$(($count8-2)) ; echo $count81 ; echo -e "FRP7 connections:" ; count7=`sudo netstat -an |grep :443 |grep EST|uniq|wc -l` ; count71=$(($count7/2));echo $count71; echo "CTRL+C to exit"'
         ;;
-    4)  
+    4)  # test communication with stun.console.nutanix.com
+        echo -e "Expected result is the public IP address of SGA"
+        /usr/local/bin/external_ip_via_stun.sh stun.console.nutanix.com
+        pause   
+    5)  
         # goto end
         echo "Exiting the script"
         exit 0
         ;;
     *)
-        echo "Invalid choice. Please choose 1, 2, 3 or 4."
+        echo "Invalid choice. Please choose one of the number in main menu"
         ;;
 esac
 # end of script
