@@ -48,7 +48,7 @@ case $choice in
         # test communication with stun.console.nutanix.com
         echo -e 'Expected result is the public IP address of SGA'
         /usr/bin/local/external_ip_via_stun.sh stun.console.nutanix.com
-        pause
+        read -p "Press enter to continue"
         ;;
     5)  
         # goto end
