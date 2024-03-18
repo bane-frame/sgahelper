@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Script for SGA 3.x Web console service management v1.2
+# Script for SGA 3.x Web console service management v1.2.1
 #
 
 # function to enable the web management service
@@ -45,8 +45,8 @@ case $choice in
         watch -d 'echo -e "FRP8 connections:" ; count8=`sudo netstat -anp |grep turn|grep -v 127|grep udp|uniq|wc -l` ; count81=$(($count8-2)) ; echo $count81 ; echo -e "FRP7 connections:" ; count7=`sudo netstat -an |grep :443 |grep EST|uniq|wc -l` ; count71=$(($count7/2));echo $count71; echo "CTRL+C to exit"'
         ;;
     4)  # test communication with stun.console.nutanix.com
-        echo -e "Expected result is the public IP address of SGA"
-        /usr/local/bin/external_ip_via_stun.sh stun.console.nutanix.com
+        echo -e 'Expected result is the public IP address of SGA'
+        external_ip_via_stun.sh stun.console.nutanix.com
         pause   
     5)  
         # goto end
