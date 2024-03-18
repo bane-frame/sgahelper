@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Script for SGA 3.x Web console service management v1.0
+# Script for SGA 3.x Web console service management v1.1
 #
 
 # function to enable the web management service
@@ -25,7 +25,7 @@ echo "SGA web management script"
 echo "----------------------"
 echo "1. Enable service"
 echo "2. Disable service"
-echo "3. See current number of connections on SGA"
+echo "3. Connection statistics on SGA"
 echo "4. Exit"
 
 read -p "Enter your choice: " choice
@@ -40,6 +40,7 @@ case $choice in
         disable_service app_mgmt_web_secure.service
         ;;
     3)
+        # see the current number of connections to SGA
         watch -d 'echo -e "FRP8 connections:" ; count8=`sudo netstat -anp |grep turn|grep -v 127|grep udp|uniq|wc -l` ; count81=$(($count8-2)) ; echo $count81 ; echo -e "FRP7 connections:" ; count7=`sudo netstat -an |grep :443 |grep EST|uniq|wc -l` ; count71=$(($count7/2));echo $count71; echo "CTRL+C to exit"'
         ;;
     4)  
