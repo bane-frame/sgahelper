@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Script for SGA 3.x Web console service management v1.2.1
+# Script for SGA 3.x Web console service management v1.2.2
 #
 
 # function to enable the web management service
@@ -47,7 +47,7 @@ case $choice in
     4)  
         # test communication with stun.console.nutanix.com
         echo -e 'Expected result is the public IP address of SGA'
-        /usr/bin/local/external_ip_via_stun.sh stun.console.nutanix.com
+        /usr/local/bin/external_ip_via_stun.sh stun.console.nutanix.com
         read -p "Press enter to continue"
         ;;
     5)  
