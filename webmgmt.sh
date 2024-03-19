@@ -20,6 +20,16 @@ disable_service() {
     systemctl status "$1"
 }
 
+# function for FRP7
+FRP7() {
+count7=`sudo netstat -an |grep :443 |grep EST|uniq|wc -l` ; count71=$(($count7/2));echo $count71
+}
+
+# function for FRP8
+FRP8() {
+count8=`sudo netstat -anp |grep turn|grep -v 127|grep udp|uniq|wc -l` ; count81=$(($count8-2)) ; echo $count81
+}
+
 # enable or disable service choice
 echo "SGA web management script"
 echo "----------------------"
@@ -43,7 +53,7 @@ case $choice in
         ;;
     3)
         # see the current number of connections to SGA
-        watch -d 'echo -e "FRP8 connections:" ; count8=`sudo netstat -anp |grep turn|grep -v 127|grep udp|uniq|wc -l` ; count81=$(($count8-2)) ; echo $count81 ; echo -e "FRP7 connections:" ; count7=`sudo netstat -an |grep :443 |grep EST|uniq|wc -l` ; count71=$(($count7/2));echo $count71; echo "CTRL+C to exit"'
+        watch -d 'echo -e "FRP8 connections:" ; FRP8 ; echo -e "FRP7 connections:" ; FRP7 ; echo "CTRL+C to exit"'
         ;;
     4)  
         # test communication with stun.console.nutanix.com
