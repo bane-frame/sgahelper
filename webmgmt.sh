@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Script for SGA 3.x Web console service management v1.4.1
+# Script for SGA 3.x Web console service management v1.4.2
 #
 
 # function to enable the web management service
@@ -74,7 +74,11 @@ case $choice in
         ;;
     6)  
         # force log rotation to cleanup /var/log partition
-        sudo du -sh /var/log/* |sort -k 1 -n -r && echo -e "==================== FORCING LOG ROTATION ===============================" && sudo find /etc/logrotate.d/ -type f -name * -print0 |sudo xargs -0 logrotate -f -d
+        sudo du -sh /var/log/* |sort -k 1 -n -r
+        echo -e "==================== FORCING LOG ROTATION ==============================="
+        cd /etc/logrotate.d/
+        sudo find /etc/logrotate.d/ -type f -name * -print0 | sudo xargs -0 logrotate -f -d
+        cd
         ;;
     7)  
         # goto end
