@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Script for SGA 3.x Web console service management v1.2.2
+# Script for SGA 3.x Web console service management v1.3.0
 #
 
 # function to enable the web management service
@@ -27,7 +27,8 @@ echo "1. Enable status page service"
 echo "2. Disable status page service"
 echo "3. Connection statistics on SGA"
 echo "4. Test STUN communication"
-echo "5. Exit"
+echo "5. Test NGINX configuration"
+echo "6. Exit"
 
 read -p "Enter your choice: " choice
 
@@ -51,12 +52,17 @@ case $choice in
         read -p "Press enter to continue"
         ;;
     5)  
+        # test nginx configuration
+        echo -e 'Testing NGINX configuration...'
+        sudo /usr/sbin/nginx -t
+        ;;
+    6)  
         # goto end
         echo "Exiting the script"
         exit 0
         ;;
     *)
-        echo "Invalid choice. Please choose one of the number in main menu"
+        echo "Invalid choice. Please choose one of the numbers in the main menu"
         ;;
 esac
 # end of script
