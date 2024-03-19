@@ -57,7 +57,8 @@ case $choice in
         ;;
     3)
         # see the current number of connections to SGA
-        watch -d 'echo -e "FRP8 connections:" ; FRP8 ; echo -e "FRP7 connections:" ; FRP7 ; echo "CTRL+C to exit"'
+        echo -e "FRP8 connections:" ; FRP8
+        echo -e "FRP7 connections:" ; FRP7
         ;;
     4)  
         # test communication with stun.console.nutanix.com
