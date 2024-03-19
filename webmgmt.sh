@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Script for SGA 3.x Web console service management v1.3.2
+# Script for SGA 3.x Web console service management v1.4.0
 #
 
 # function to enable the web management service
@@ -42,7 +42,8 @@ echo "2. Disable status page service"
 echo "3. Connection statistics on SGA"
 echo "4. Test STUN communication"
 echo "5. Test NGINX configuration"
-echo "6. Exit"
+echo "6. Cleanup log partition"
+echo "7. Exit"
 
 read -p "Enter your choice: " choice
 
@@ -72,6 +73,12 @@ case $choice in
         sudo /usr/sbin/nginx -t
         ;;
     6)  
+        # force log rotation to cleanup /var/log partition
+        sudo du -sh /var/log/* |sort -k 1 -n -r
+        echo -e "==================== FORCING LOG ROTATION ==============================="
+        sudo find /etc/logrotate.d/ -type f -name * -print0 |sudo xargs -0 logrotate -f -d
+        ;;
+    7)  
         # goto end
         echo "Exiting the script"
         exit 0
