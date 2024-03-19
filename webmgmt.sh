@@ -22,12 +22,16 @@ disable_service() {
 
 # function for FRP7
 FRP7() {
-count7=`sudo netstat -an |grep :443 |grep EST|uniq|wc -l` ; count71=$(($count7/2));echo $count71
+count7=`sudo netstat -an |grep :443 |grep EST|uniq|wc -l`
+count71=$(($count7/2))
+echo $count71
 }
 
 # function for FRP8
 FRP8() {
-count8=`sudo netstat -anp |grep turn|grep -v 127|grep udp|uniq|wc -l` ; count81=$(($count8-2)) ; echo $count81
+count8=`sudo netstat -anp |grep turn|grep -v 127|grep udp|uniq|wc -l`
+count81=$(($count8-2))
+echo $count81
 }
 
 # enable or disable service choice
