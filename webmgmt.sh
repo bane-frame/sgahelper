@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Script for SGA 3.x Web console service management v1.4.5
+# Script for SGA 3.x Web console service management v1.4.6
 #
 
 # function to enable the web management service
@@ -34,7 +34,8 @@ count81=$(($count8-2))
 echo $count81
 }
 
-# enable or disable service choice
+# main menu function to enable or disable service choice
+main_menu() {
 echo "SGA web management script"
 echo "----------------------"
 echo "1. Enable status page service"
@@ -51,32 +52,44 @@ case $choice in
     1)
         enable_service app_mgmt_web.service
         enable_service app_mgmt_web_secure.service
+        read -p "Press enter to go back on main menu"
+        main_menu
         ;;
     2)
         disable_service app_mgmt_web.service
         disable_service app_mgmt_web_secure.service
+        read -p "Press enter to go back on main menu"
+        main_menu
         ;;
     3)
         # see the current number of connections to SGA
         echo -e "FRP8 connections:" ; FRP8
         echo -e "FRP7 connections:" ; FRP7
+        read -p "Press enter to go back on main menu"
+        main_menu
         ;;
     4)  
         # test communication with stun.console.nutanix.com
         echo -e 'Expected result is the public IP address of SGA'
         /usr/local/bin/external_ip_via_stun.sh stun.console.nutanix.com
-        read -p "Press enter to continue"
+        read -p "Press enter to go back on main menu"
+        main_menu
         ;;
     5)  
         # test nginx configuration
         echo -e 'Testing NGINX configuration...'
         sudo /usr/sbin/nginx -t
+        read -p "Press enter to go back on main menu"
+        main_menu
         ;;
     6)  
         # force log rotation to cleanup /var/log partition
         sudo du -sh /var/log/* |sort -k 1 -n -r
+        read -p "Press enter to go back on main menu"
         echo -e "==================== FORCING LOG ROTATION ==============================="
         sudo find /etc/logrotate.d/ -type f -name '*' -print0 | sudo xargs -0 logrotate -f -d
+        read -p "Press enter to go back on main menu"
+        main_menu
         ;;
     7)  
         # goto end
@@ -85,6 +98,9 @@ case $choice in
         ;;
     *)
         echo "Invalid choice. Please choose one of the numbers in the main menu"
+        read -p "Press enter to go back on main menu"
+        main_menu
         ;;
 esac
 # end of script
+}
