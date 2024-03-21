@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ############################################################
-# Script for SGA 3.x Web console service management v1.6.0 #
+# Script for SGA 3.x Web console service management v1.6.1 #
 ############################################################
 
 # begin of service management functions
@@ -44,9 +44,9 @@ echo $count81
 # end of protocol statistics
 
 # main menu function
-sp=service_status app_mgmt_web.service
-sf7=service_status nginx.service
-sf8=service_status coturn.service
+sp=$(service_status app_mgmt_web.service)
+sf7=$(service_status nginx.service)
+sf8=$(service_status coturn.service)
 main_menu() {
 echo "SGA Helper"
 echo "----------------------------------"
