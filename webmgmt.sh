@@ -1,10 +1,11 @@
 #!/bin/bash
 
-#
-# Script for SGA 3.x Web console service management v1.4.7
-#
+############################################################
+# Script for SGA 3.x Web console service management v1.4.9 #
+############################################################
 
-# function to enable the web management service
+# begin of service management functions
+# function to enable service
 enable_service() {
     echo "Enabling the service..."
     systemctl enable "$1"
@@ -12,14 +13,16 @@ enable_service() {
     systemctl status "$1"
 }
 
-# function to disable the web management service
+# function to disable service
 disable_service() {
     echo "Disabling the service..."
     systemctl stop "$1"
     systemctl disable "$1"
     systemctl status "$1"
 }
+# end of service management functions
 
+# protocol statistics funtctions
 # function for FRP7
 FRP7() {
 count7=`sudo netstat -an |grep :443 |grep EST|uniq|wc -l`
@@ -33,8 +36,9 @@ count8=`sudo netstat -anp |grep turn|grep -v 127|grep udp|uniq|wc -l`
 count81=$(($count8-2))
 echo $count81
 }
+# end of protocol statistics
 
-# main menu function to enable or disable service choice
+# main menu function
 main_menu() {
 echo "SGA web management script"
 echo "----------------------"
@@ -70,7 +74,7 @@ case $choice in
         ;;
     4)  
         # test communication with stun.console.nutanix.com
-        echo -e 'Expected result is the public IP address of SGA'
+        echo -e 'Expected result is the public IP address of SGA which should be same as public IP associated with FQDN'
         /usr/local/bin/external_ip_via_stun.sh stun.console.nutanix.com
         read -p "Press enter to go back on main menu"
         main_menu
@@ -78,7 +82,14 @@ case $choice in
     5)  
         # test nginx configuration
         echo -e 'Testing NGINX configuration...'
-        sudo /usr/sbin/nginx -t
+        filesize=$(stat -c%s "/etc/nginx/nginx.conf")
+        echo "Size of $filesize bytes."
+            if (( filesize > 0 )); then
+                echo "NGINX configuration is greater than 0, checking syntax..."
+                sudo /usr/sbin/nginx -t
+            else
+                echo "NGINX configuration is NOT VALID, please consult Frame documentation and check if CIDR range is valid"
+            fi
         read -p "Press enter to go back on main menu"
         main_menu
         ;;
@@ -101,6 +112,9 @@ case $choice in
         main_menu
         ;;
 esac
-# end of script
+# end of main menu fuction
 }
+# begin
+clear
 main_menu
+# end
