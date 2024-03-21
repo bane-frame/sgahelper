@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Script for SGA 3.x Web console service management v1.4.4
+# Script for SGA 3.x Web console service management v1.4.5
 #
 
 # function to enable the web management service
