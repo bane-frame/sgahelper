@@ -103,5 +103,5 @@ case $choice in
         ;;
 esac
 # end of script
-main_menu
 }
+main_menu
