@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ############################################################
-# Script for SGA 3.x Web console service management v1.6.1 #
+# Script for SGA 3.x Web console service management v1.6.2 #
 ############################################################
 
 # begin of service management functions
@@ -47,8 +47,9 @@ echo $count81
 sp=$(service_status app_mgmt_web.service)
 sf7=$(service_status nginx.service)
 sf8=$(service_status coturn.service)
+clear
 main_menu() {
-echo "SGA Helper"
+echo "SGA Helper v1.6.2"
 echo "----------------------------------"
 echo "SGA service health:"
 echo " "
@@ -115,6 +116,7 @@ case $choice in
         ;;
     6)  
         # show nginx errors
+        clear
         tail /var/log/nginx/error.log
         read -p "Press enter to go back on main menu"
         main_menu
