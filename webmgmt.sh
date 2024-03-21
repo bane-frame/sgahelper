@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ############################################################
-# Script for SGA 3.x Web console service management v1.6.3 #
+# Script for SGA 3.x Web console service management v1.6.4 #
 ############################################################
 
 # begin of service management functions
@@ -49,7 +49,7 @@ sp=$(service_status app_mgmt_web.service)
 sf7=$(service_status nginx.service)
 sf8=$(service_status coturn.service)
 clear
-echo "SGA Helper v1.6.3"
+echo "SGA Helper v1.6.4"
 echo "----------------------------------"
 echo "SGA service health:"
 echo " "
@@ -71,12 +71,14 @@ read -p "Enter your choice: " choice
 
 case $choice in
     1)
+        clear
         enable_service app_mgmt_web.service
         enable_service app_mgmt_web_secure.service
         read -p "Press enter to go back on main menu"
         main_menu
         ;;
     2)
+        clear
         disable_service app_mgmt_web.service
         disable_service app_mgmt_web_secure.service
         read -p "Press enter to go back on main menu"
@@ -84,6 +86,7 @@ case $choice in
         ;;
     3)
         # see the current number of connections to SGA
+        clear
         echo -e "FRP8 connections:" ; FRP8
         echo -e "FRP7 connections:" ; FRP7
         read -p "Press enter to go back on main menu"
@@ -91,13 +94,16 @@ case $choice in
         ;;
     4)  
         # test communication with stun.console.nutanix.com
-        echo -e 'Expected result is the public IP address of SGA which should be same as public IP associated with FQDN'
+        clear
+        echo -e 'Expected result is the public IP address of SGA'
+        echo -e 'which should be same as public IP associated with FQDN'
         /usr/local/bin/external_ip_via_stun.sh stun.console.nutanix.com
         read -p "Press enter to go back on main menu"
         main_menu
         ;;
     5)  
         # test nginx configuration
+        clear
         echo -e 'Testing NGINX configuration...'
         filesize=$(stat -c%s "/etc/nginx/nginx.conf")
         echo "Size of configuration file is $filesize bytes."
@@ -123,6 +129,7 @@ case $choice in
         ;;
     7)  
         # force log rotation to cleanup /var/log partition
+        clear
         sudo du -sh /var/log/* |sort -k 1 -n -r
         echo -e "==================== FORCING LOG ROTATION ==============================="
         sudo find /etc/logrotate.d/ -type f -name '*' -print0 | sudo xargs -0 logrotate -f -d
@@ -131,6 +138,7 @@ case $choice in
         ;;
     8)  
         # make backup of coturn unit
+        clear
         sudo cp /etc/systemd/system/coturn.service /home/nutanix/coturn.service.bak
         # remove nonce mechanism from coturn configuration
         sudo sed -i '/nonce/d' /etc/systemd/system/coturn.service
@@ -164,6 +172,5 @@ esac
 # end of main menu fuction
 }
 # begin
-clear
 main_menu
 # end
