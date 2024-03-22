@@ -24,7 +24,7 @@ disable_service() {
 # function to check service status
 service_status() {
     state=$(systemctl is-active "$1")
-        if echo "$state" | grep active;
+        if echo "$state" | grep active > /dev/null 2>&1;
             then echo "RUNNING"
             else echo "DOWN"
         fi
