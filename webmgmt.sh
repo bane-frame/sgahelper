@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ############################################################
-# Script for SGA 3.x Web console service management v1.6.4 #
+# Script for SGA 3.x Web console service management v1.6.5 #
 ############################################################
 
 # begin of service management functions
@@ -23,7 +23,11 @@ disable_service() {
 
 # function to check service status
 service_status() {
-    systemctl is-active "$1"
+    state=$(systemctl is-active "$1")
+        if $state in active;
+            then echo "RUNNING"
+            else echo "DOWN"
+        fi
 }
 # end of service management functions
 
@@ -49,14 +53,17 @@ sp=$(service_status app_mgmt_web.service)
 sf7=$(service_status nginx.service)
 sf8=$(service_status coturn.service)
 clear
-echo "SGA Helper v1.6.4"
+echo "SGA Helper v1.6.5"
 echo "----------------------------------"
+echo " "
 echo "SGA service health:"
 echo " "
-echo "SGA status page is $sp"
-echo "NGINX/FRP7 protocol is $sf7"
-echo "Coturn/FRP8 protocol is $sf8"
+echo "SGA status page is         [$sp]"
+echo "NGINX/FRP7 protocol is     [$sf7]"
+echo "Coturn/FRP8 protocol is    [$sf8]"
+echo " "
 echo "----------------------------------"
+echo " "
 echo "1. Enable status page service"
 echo "2. Disable status page service"
 echo "3. Connection statistics on SGA"
@@ -66,6 +73,7 @@ echo "6. Show NGINX errors"
 echo "7. Cleanup log partition"
 echo "8. Disable nonce mechanism - WARNING this will drop all FRP8 connections"
 echo "9. Exit"
+echo " "
 
 read -p "Enter your choice: " choice
 
