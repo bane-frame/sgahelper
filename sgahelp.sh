@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ############################################################
-# Script for SGA 3.x Web console service management v1.6.5 #
+#                       SGA Helper v1.6.6                  #
 ############################################################
 
 # begin of service management functions
@@ -31,7 +31,7 @@ service_status() {
 }
 # end of service management functions
 
-# protocol statistics funtctions
+# protocol statistics functions
 # function for FRP7
 FRP7() {
 count7=`sudo netstat -an |grep :443 |grep EST|uniq|wc -l`
@@ -53,10 +53,10 @@ sp=$(service_status app_mgmt_web.service)
 sf7=$(service_status nginx.service)
 sf8=$(service_status coturn.service)
 clear
-echo "SGA Helper v1.6.5"
+echo "SGA Helper v1.6.6"
 echo "----------------------------------"
 echo " "
-echo "SGA service health:"
+echo "SGA services health:"
 echo " "
 echo "SGA status page is         [$sp]"
 echo "NGINX/FRP7 protocol is     [$sf7]"
