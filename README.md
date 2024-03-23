@@ -8,4 +8,4 @@ Roadmap
 - [x] Cleanup log partition
 - [x] Disable nonce mechanism
 - [x] SGA health dashboard
-- [ ] Toggle SSH password auth
+- [ ] Toggle SSH password authentication
