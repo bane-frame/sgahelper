@@ -229,6 +229,7 @@ case $choice in
 #                exit 1
 #                ;;
 #        esac
+        read -p "Press enter to go back on main menu"
         main_menu
         ;;
     10)  
