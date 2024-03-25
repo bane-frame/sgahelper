@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ############################################################
-#                       SGA Helper v1.6.6                  #
+#                       SGA Helper v1.7.6                  #
 ############################################################
 
 ### begin of service management functions ###
@@ -31,6 +31,35 @@ function service_status() {
 }
 ### end of service management functions ###
 
+### begin password management ###
+
+# function to enable SSH password authentication
+function enable_password_auth() {
+    sed -i 's/^PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
+    systemctl restart sshd
+    echo "Password authentication enabled for SSH."
+}
+
+# function to disable SSH password authentication
+function disable_password_auth() {
+    sed -i 's/^PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+    systemctl restart sshd
+    echo "Password authentication disabled for SSH."
+}
+
+# function to check if password authentication is enabled
+function is_password_auth_enabled() {
+    sudo grep -qE '^ *PasswordAuthentication\s+yes' /etc/ssh/sshd_config
+    return $?
+}
+
+# function to check if password authentication is disabled
+function is_password_auth_disabled() {
+    sudo grep -qE '^ *PasswordAuthentication\s+no' /etc/ssh/sshd_config
+    return $?
+}
+### end password management ###
+
 ### protocol statistics functions ###
 # function for FRP7
 function FRP7() {
@@ -53,7 +82,7 @@ sp=$(service_status app_mgmt_web.service)
 sf7=$(service_status nginx.service)
 sf8=$(service_status coturn.service)
 clear
-echo "SGA Helper v1.6.6"
+echo "SGA Helper v1.7.6"
 echo "----------------------------------"
 echo " "
 # health dashboard
@@ -62,6 +91,10 @@ echo " "
 echo "SGA status page is         [$sp]"
 echo "NGINX/FRP7 protocol is     [$sf7]"
 echo "Coturn/FRP8 protocol is    [$sf8]"
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 [enable|disable]"
+    exit 1
+fi
 echo " "
 echo "----------------------------------"
 echo " "
@@ -74,7 +107,8 @@ echo "5. Test NGINX configuration"
 echo "6. Show NGINX errors"
 echo "7. Cleanup log partition"
 echo "8. Disable nonce mechanism - WARNING this will drop all FRP8 connections"
-echo "9. Exit"
+echo "9. Toggle SSH password authentication"
+echo "0. Exit"
 echo " "
 
 read -p "Enter your choice: " choice
@@ -171,7 +205,30 @@ case $choice in
         read -p "Press enter to go back on main menu"
         main_menu
         ;;
-    9)  
+    9)
+        clear
+        # Perform the action based on the argument
+        case "$1" in
+            "enable")
+                if is_password_auth_enabled; then
+                    echo "Password authentication is already enabled for SSH."
+                else
+                enable_password_auth
+                fi
+                ;;
+            "disable")
+                if is_password_auth_disabled; then
+                    echo "Password authentication is already disabled for SSH."
+                else
+                    disable_password_auth
+                fi
+                ;;
+            *)
+                echo "Invalid option. Usage: $0 [enable|disable]"
+                exit 1
+                ;;
+        esac
+    0)  
         # goto end
         echo "Exiting the script"
         exit 0
