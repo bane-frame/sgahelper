@@ -81,6 +81,7 @@ function main_menu() {
 sp=$(service_status app_mgmt_web.service)
 sf7=$(service_status nginx.service)
 sf8=$(service_status coturn.service)
+is_password_auth_enabled
 clear
 echo "SGA Helper v1.7.6"
 echo "----------------------------------"
@@ -92,8 +93,10 @@ echo "SGA status page is         [$sp]"
 echo "NGINX/FRP7 protocol is     [$sf7]"
 echo "Coturn/FRP8 protocol is    [$sf8]"
 if [ $# -ne 1 ]; then
-    echo "Usage: $0 [enable|disable]"
-    exit 1
+    echo "SSH access password is ENABLED" 
+    else
+    echo "SSH access password is DISABLED"
+
 fi
 echo " "
 echo "----------------------------------"
