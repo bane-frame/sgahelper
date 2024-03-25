@@ -217,7 +217,6 @@ case $choice in
                 else
                 enable_password_auth
                 fi
-                ;;
 #            "disable")
 #                if is_password_auth_disabled; then
 #                    echo "Password authentication is already disabled for SSH."
