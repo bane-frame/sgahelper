@@ -228,6 +228,7 @@ case $choice in
                 exit 1
                 ;;
         esac
+        ;;
     0)  
         # goto end
         echo "Exiting the script"
