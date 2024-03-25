@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ############################################################
-#                       SGA Helper v1.6.6                  #
+#                       SGA Helper v1.6.7                  #
 ############################################################
 
 ### begin of service management functions ###
@@ -53,7 +53,7 @@ sp=$(service_status app_mgmt_web.service)
 sf7=$(service_status nginx.service)
 sf8=$(service_status coturn.service)
 clear
-echo "SGA Helper v1.6.6"
+echo "SGA Helper v1.6.7"
 echo "----------------------------------"
 echo " "
 # health dashboard
