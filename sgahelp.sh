@@ -93,10 +93,9 @@ echo "SGA status page is         [$sp]"
 echo "NGINX/FRP7 protocol is     [$sf7]"
 echo "Coturn/FRP8 protocol is    [$sf8]"
 if [ $# -ne 1 ]; then
-    echo "SSH access password is ENABLED" 
+    echo "SSH access with password is ENABLED" 
     else
-    echo "SSH access password is DISABLED"
-
+    echo "SSH access with password is DISABLED"
 fi
 echo " "
 echo "----------------------------------"
@@ -211,26 +210,26 @@ case $choice in
     9)
         clear
         # Perform the action based on the argument
-        case "$1" in
-            "enable")
+#        case "$1" in
+#            "enable")
                 if is_password_auth_enabled; then
                     echo "Password authentication is already enabled for SSH."
                 else
                 enable_password_auth
                 fi
                 ;;
-            "disable")
-                if is_password_auth_disabled; then
-                    echo "Password authentication is already disabled for SSH."
-                else
-                    disable_password_auth
-                fi
-                ;;
-            *)
-                echo "Invalid option. Usage: $0 [enable|disable]"
-                exit 1
-                ;;
-        esac
+#            "disable")
+#                if is_password_auth_disabled; then
+#                    echo "Password authentication is already disabled for SSH."
+#                else
+#                    disable_password_auth
+#                fi
+#                ;;
+#            *)
+#                echo "Invalid option. Usage: $0 [enable|disable]"
+#                exit 1
+#                ;;
+#        esac
         main_menu
         ;;
     10)  
