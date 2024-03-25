@@ -92,10 +92,11 @@ echo " "
 echo "SGA status page is         [$sp]"
 echo "NGINX/FRP7 protocol is     [$sf7]"
 echo "Coturn/FRP8 protocol is    [$sf8]"
+echo " "
 if [ $# -ne 1 ]; then
-    echo "SSH access with password is ENABLED" 
+    echo "SSH access with password   [ENABLED]" 
     else
-    echo "SSH access with password is DISABLED"
+    echo "SSH access with password   [DISABLED]"
 fi
 echo " "
 echo "----------------------------------"
