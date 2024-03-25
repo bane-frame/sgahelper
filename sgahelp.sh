@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ############################################################
-#                       SGA Helper v1.6.6                  #
+#                       SGA Helper v1.6.7                  #
 ############################################################
 
 ### begin of service management functions ###
@@ -53,7 +53,7 @@ sp=$(service_status app_mgmt_web.service)
 sf7=$(service_status nginx.service)
 sf8=$(service_status coturn.service)
 clear
-echo "SGA Helper v1.6.6"
+echo "SGA Helper v1.6.7"
 echo "----------------------------------"
 echo " "
 # health dashboard
@@ -160,13 +160,13 @@ case $choice in
         sudo systemctl restart coturn
         # check service status if fails revert backup
         STATUS="$(systemctl is-active coturn.service)"
-            if [ "${STATUS}" = "inactive" ]; then
+            if [ "${STATUS}" = "active" ]; then
+                exit 1
+            else 
                 echo "Service not running as expected, reverting backup"
                 sudo cp /home/nutanix/coturn.service.bak /etc/systemd/system/coturn.service
                 sudo systemctl daemon-reload
                 systemctl restart coturn
-            else 
-                exit 1  
             fi
         read -p "Press enter to go back on main menu"
         main_menu
