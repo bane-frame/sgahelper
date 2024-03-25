@@ -110,7 +110,7 @@ echo "6. Show NGINX errors"
 echo "7. Cleanup log partition"
 echo "8. Disable nonce mechanism - WARNING this will drop all FRP8 connections"
 echo "9. Toggle SSH password authentication"
-echo "0. Exit"
+echo "10. Exit"
 echo " "
 
 read -p "Enter your choice: " choice
