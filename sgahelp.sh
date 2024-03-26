@@ -90,7 +90,7 @@ case $choice in
     2)
         clear
         disable_service app_mgmt_web.service
-        disable_service app_mgmt_web_secure.service
+#        disable_service app_mgmt_web_secure.service
         read -p "Press enter to go back on main menu"
         main_menu
         ;;
