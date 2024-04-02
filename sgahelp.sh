@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ############################################################
-#                       SGA Helper v1.7.6                  #
+#                       SGA Helper v1.7.7                  #
 ############################################################
 
 ### begin of service management functions ###
@@ -83,7 +83,7 @@ sf7=$(service_status nginx.service)
 sf8=$(service_status coturn.service)
 is_password_auth_enabled
 clear
-echo "SGA Helper v1.7.6"
+echo "SGA Helper v1.7.7"
 echo "----------------------------------"
 echo " "
 # health dashboard
@@ -127,7 +127,7 @@ case $choice in
     2)
         clear
         disable_service app_mgmt_web.service
-        disable_service app_mgmt_web_secure.service
+#       disable_service app_mgmt_web_secure.service      # suspicion that FRP8 will fail if stopped
         read -p "Press enter to go back on main menu"
         main_menu
         ;;
@@ -197,13 +197,13 @@ case $choice in
         sudo systemctl restart coturn
         # check service status if fails revert backup
         STATUS="$(systemctl is-active coturn.service)"
-            if [ "${STATUS}" = "inactive" ]; then
+            if [ "${STATUS}" = "active" ]; then
+                exit 1
+            else 
                 echo "Service not running as expected, reverting backup"
                 sudo cp /home/nutanix/coturn.service.bak /etc/systemd/system/coturn.service
                 sudo systemctl daemon-reload
                 systemctl restart coturn
-            else 
-                exit 1  
             fi
         read -p "Press enter to go back on main menu"
         main_menu
