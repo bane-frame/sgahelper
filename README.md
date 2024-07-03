@@ -6,7 +6,7 @@ SGA 3.x helper tool
 How to run?
 The script can be run directly from the GitHub repo from the SGA console with one command or downloaded to SGA and then run
 
-sudo sh -c "$(curl -sSL https://raw.githubusercontent.com/bane-frame/sgahelper/main/sgahelp.sh)"
+```sudo sh -c "$(curl -sSL https://raw.githubusercontent.com/bane-frame/sgahelper/main/sgahelp.sh)"```
 
 Roadmap
 - [x] Status page service management
